@@ -1,23 +1,24 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-//const mnemonic_privatekey = process.env["MNEMONIC_PRIVATEKEY"];
-const kargain_test_privatekey = "pilot potato spend dream mass genius tool advance spike artist patch swarm";
+const mnemonicPrivateKey = process.env["MNEMONIC_PRIVATEKEY"];
+const mnemonicPrivateKeyTesnet = process.env["MNEMONIC_PRIVATEKEY_TESNET"];
+
 module.exports = {
    networks: {
     local: {
-      provider: () => new HDWalletProvider(kargain_test_privatekey, "http://localhost"),
+      provider: () => new HDWalletProvider(mnemonicPrivateKey, "http://localhost"),
       port: 7545,            // Standard BSC port (default: none)
       network_id: "5777",       // Any network (default: none)
 
     },
     testnet: {
-      provider: () => new HDWalletProvider(kargain_test_privatekey, `https://data-seed-prebsc-1-s1.binance.org:8545`),
+      provider: () => new HDWalletProvider(mnemonicPrivateKeyTesnet, `https://data-seed-prebsc-1-s1.binance.org:8545`),
       network_id: 97,
       confirmations: 10,
       timeoutBlocks: 200,
       skipDryRun: true
     },
     bsc: {
-      provider: () => new HDWalletProvider(kargain_test_privatekey, `https://bsc-dataseed1.binance.org`),
+      provider: () => new HDWalletProvider(mnemonicPrivateKeyTesnet, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
       confirmations: 10,
       timeoutBlocks: 200,
