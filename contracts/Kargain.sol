@@ -64,11 +64,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _platformAddress = platformAddress_;
     }
 
-    function creatorOf(uint256 tokenId) external view returns (address payable) {
-        require(_tokenCreator[tokenId] != address(0x0), "Kargain: Creator query for nonexistent token");
-        return _tokenCreator[tokenId];
-    }
-
     function create(address payable creator, bytes32 tokenHash) public onlyOwner returns (uint256) {
         require(creator != address(0), "Kargain: Creator can't be 0x0");
         require(tokenHash != bytes32(0), "Kargain: Hash can't be 0x0");
@@ -80,7 +75,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function purchaseToken(address payable to, uint256 _tokenId, uint256 amount) public payable {
-        require(creatorOf(_tokenId));
+        require(_tokenCreator[_tokenId] != address(0x0), "Kargain: Creator query for nonexistent token");
         uint256 platformCommission_ = amount.mul(_platformCommission).div(10** COMMISSION_EXPONENT);
         require(msg.value == amount.add(platformCommission_), "Kargain: Invalid amount");
         transferFrom(ownerOf(_tokenId), to, _tokenId);
