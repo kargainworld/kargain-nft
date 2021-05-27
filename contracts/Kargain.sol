@@ -11,6 +11,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using ECDSAUpgradeable for bytes32;
 
     event Mint(address indexed author, uint256 indexed tokenId, bytes32 indexed tokenHash);
+    event Received(address indexed payer, uint tokenId, uint256 amount, uint256 balance);
 
     uint256 private constant COMMISSION_EXPONENT = 4;
     uint256 private _tokenCurrentId;
@@ -68,22 +69,23 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         return _tokenCreator[tokenId];
     }
 
-    function mint(address payable creator, address to, bytes32 tokenHash) public onlyOwner returns (uint256) {
+    function create(address payable creator, bytes32 tokenHash) public onlyOwner returns (uint256) {
         require(creator != address(0), "Kargain: Creator can't be 0x0");
         require(tokenHash != bytes32(0), "Kargain: Hash can't be 0x0");
         _tokenCurrentId = _tokenCurrentId + 1;
-        _mint(to, _tokenCurrentId);
+        _mint(creator, _tokenCurrentId);
         _tokenCreator[_tokenCurrentId] = creator;
         emit Mint(creator, _tokenCurrentId, tokenHash);
         return _tokenCurrentId;
     }
 
-    function executeTransferFrom(address payable from, address to, uint256 tokenId, uint256 amount
-    ) public payable {
-        require(to == _msgSender(), "Kargain: Invalid executor");
+    function purchaseToken(address payable to, uint256 _tokenId, uint256 amount) public payable {
+        require(creatorOf(_tokenId));
         uint256 platformCommission_ = amount.mul(_platformCommission).div(10** COMMISSION_EXPONENT);
         require(msg.value == amount.add(platformCommission_), "Kargain: Invalid amount");
-        _transfer(from, to, tokenId);
+        transferFrom(ownerOf(_tokenId), to, _tokenId);
         _platformAddress.transfer(platformCommission_);
+        emit Received(ownerOf(_tokenId), _tokenId, amount, address(ownerOf(_tokenId)).balance);
     }
+
 }
