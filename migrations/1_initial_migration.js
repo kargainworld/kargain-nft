@@ -1,5 +1,5 @@
-const Migrations = artifacts.require("Migrations");
+const Kargain = artifacts.require("Kargain");
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(Kargain);
 };
