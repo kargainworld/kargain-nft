@@ -25,6 +25,8 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
     struct Token {
         uint256 tokenId;
         address owner;
+        uint amount;
+        bool offerAccepted;
         mapping(address => bool) offers;
     }
 
@@ -66,16 +68,19 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
         _platformAddress = platformAddress_;
     }
 
-    function create(address payable creator, uint256 tokenId) public payable{
+    function create(address payable creator, uint256 tokenId, uint256 amount) public payable{
         require(_tokens[tokenId], "Kargain: Auction for this token already exist");
         super._mint(creator, _tokenCurrentId);
-        _tokens[tokenId] = creator;
+        _tokens[tokenId].owner = creator;
+        _tokens[tokenId].amount = amount;
         emit TokenCreated(creator, tokenId);
     }
 
-    function purchaseToken(address payable to, uint256 _tokenId) public payable {
-        require(!_auction_exist[tokenContract][tokenId], "Kargain: Auction for this token already exist");
-
+    function purchaseToken(address payable payer, uint256 _tokenId) public payable {
+        require(!_tokens[_tokenId], "Kargain: Auction for this token already exist");
+        require(_tokens[tokenId].offerAccepted, "Kargain: Offer was accepted");
+        address payable payer = _tokens[tokenId].amount;
+        // javi gato
         //uint256 platformCommission_ = amount.mul(_platformCommission).div(10** COMMISSION_EXPONENT);
         //require(msg.value == amount.add(platformCommission_), "Kargain: Invalid amount");
         //transferFrom(ownerOf(_tokenId), to, _tokenId);
