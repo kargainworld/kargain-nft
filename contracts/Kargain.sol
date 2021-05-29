@@ -67,14 +67,14 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
     }
 
     function create(address payable creator, uint256 tokenId) public payable{
-        require(_tokens[tokenId], "SoulyAuction: Auction for this token already exist");
-        //_mint(creator, _tokenCurrentId);
-        //_tokenCreator[_tokenCurrentId] = creator;
-        //emit Mint(creator, _tokenCurrentId, tokenHash);
+        require(_tokens[tokenId], "Kargain: Auction for this token already exist");
+        super._mint(creator, _tokenCurrentId);
+        _tokens[creator] = tokenId;
+        emit TokenCreated(creator, tokenId);
     }
 
     function purchaseToken(address payable to, uint256 _tokenId) public payable {
-        require(!_auction_exist[tokenContract][tokenId], "SoulyAuction: Auction for this token already exist");
+        require(!_auction_exist[tokenContract][tokenId], "Kargain: Auction for this token already exist");
 
         //uint256 platformCommission_ = amount.mul(_platformCommission).div(10** COMMISSION_EXPONENT);
         //require(msg.value == amount.add(platformCommission_), "Kargain: Invalid amount");
