@@ -69,7 +69,7 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
     function create(address payable creator, uint256 tokenId) public payable{
         require(_tokens[tokenId], "Kargain: Auction for this token already exist");
         super._mint(creator, _tokenCurrentId);
-        _tokens[creator] = tokenId;
+        _tokens[tokenId] = creator;
         emit TokenCreated(creator, tokenId);
     }
 
