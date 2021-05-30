@@ -17,6 +17,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
 
     mapping (uint => Token) private _tokens;
     mapping (uint256 => address payable) private _offers;
+    mapping (uint256 => uint256) private _offers_closeTimestamp;
 
     event TokenCreated(address indexed creator, uint256 indexed tokenId);
     event OfferReceived(address indexed payer, uint tokenId);
@@ -70,7 +71,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function create(address payable creator, uint256 tokenId, uint256 amount) public payable{
-        require(_tokens[tokenId].isValue, "Kargain: Id for this token already exist");
+        require(!_tokens[tokenId].isValue, "Kargain: Id for this token already exist");
         super._mint(creator, _tokenCurrentId);
         _tokens[tokenId].owner = creator;
         _tokens[tokenId].isValue = true;
