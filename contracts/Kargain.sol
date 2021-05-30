@@ -26,8 +26,9 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
         uint256 tokenId;
         address owner;
         uint amount;
+        address offerAddress;
+        bool offer;
         bool offerAccepted;
-        mapping(address => bool) offers;
     }
 
     struct TransferType {
@@ -78,14 +79,13 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
 
     function purchaseToken(address payable payer, uint256 _tokenId) public payable {
         require(!_tokens[_tokenId], "Kargain: Auction for this token already exist");
+        require(_tokens[tokenId].offer, "Kargain: An offer is pending");
         require(_tokens[tokenId].offerAccepted, "Kargain: Offer was accepted");
+        require(!msg.value == _tokens[tokenId].amount, "Kargain: the offer amount is invalid");
         address payable payer = _tokens[tokenId].amount;
-        // javi gato
-        //uint256 platformCommission_ = amount.mul(_platformCommission).div(10** COMMISSION_EXPONENT);
-        //require(msg.value == amount.add(platformCommission_), "Kargain: Invalid amount");
-        //transferFrom(ownerOf(_tokenId), to, _tokenId);
-        //_platformAddress.transfer(platformCommission_);
-        //emit Received(ownerOf(_tokenId), _tokenId, amount, address(ownerOf(_tokenId)).balance);
+        _tokens[tokenId].offers[payable(address(msg.sender))];
+        payer.transfer(_tokens[tokenId].amount);
+        emit OfferReceived(tokenId, msg.sender);
     }
 
 }
