@@ -2,11 +2,11 @@
 pragma solidity >=0.6.0 <0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721BurnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/cryptography/ECDSAUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
 
-contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
+contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using SafeMathUpgradeable for uint256;
     using ECDSAUpgradeable for bytes32;
 
@@ -16,17 +16,17 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
     uint256 private _platformCommission;
 
     mapping (uint => Token) private _tokens;
+    mapping (uint256 => address payable) private _offers;
 
-    event TokenCreated(address indexed creator, uint256 indexed tokenId, bytes32 indexed tokenHash);
+    event TokenCreated(address indexed creator, uint256 indexed tokenId);
     event OfferReceived(address indexed payer, uint tokenId);
     event OfferAccepted(address indexed payer, uint tokenId);
     event OfferRejected(address indexed payer, uint tokenId);
 
     struct Token {
-        uint256 tokenId;
         address owner;
         uint amount;
-        address offerAddress;
+        bool isValue;
         bool offer;
         bool offerAccepted;
     }
@@ -49,7 +49,7 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
         _platformCommission = platformCommissionPercent_;
         __ERC721Burnable_init();
         __ERC721_init("Kargain", "KGN");
-        __Ownable_init();
+        __AccessControl_init();
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
@@ -70,22 +70,23 @@ contract Kargain is ERC721BurnableUpgradeable, OwnableUpgradeable {
     }
 
     function create(address payable creator, uint256 tokenId, uint256 amount) public payable{
-        require(_tokens[tokenId], "Kargain: Auction for this token already exist");
+        require(_tokens[tokenId].isValue, "Kargain: Id for this token already exist");
         super._mint(creator, _tokenCurrentId);
         _tokens[tokenId].owner = creator;
+        _tokens[tokenId].isValue = true;
         _tokens[tokenId].amount = amount;
         emit TokenCreated(creator, tokenId);
     }
 
-    function purchaseToken(address payable payer, uint256 _tokenId) public payable {
-        require(!_tokens[_tokenId], "Kargain: Auction for this token already exist");
-        require(_tokens[tokenId].offer, "Kargain: An offer is pending");
-        require(_tokens[tokenId].offerAccepted, "Kargain: Offer was accepted");
-        require(!msg.value == _tokens[tokenId].amount, "Kargain: the offer amount is invalid");
-        address payable payer = _tokens[tokenId].amount;
-        _tokens[tokenId].offers[payable(address(msg.sender))];
-        payer.transfer(_tokens[tokenId].amount);
-        emit OfferReceived(tokenId, msg.sender);
+    function purchaseToken(uint256 _tokenId) public payable {
+        require(!_tokens[_tokenId].isValue, "Kargain: Auction for this token already exist");
+        require(_tokens[_tokenId].offer, "Kargain: An offer is pending");
+        require(_tokens[_tokenId].offerAccepted, "Kargain: Offer was accepted");
+        require(msg.value != _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
+        address payable refundAddress = _offers[_tokenId];
+        _offers[_tokenId] = payable(address(msg.sender));
+        refundAddress.transfer(_tokens[_tokenId].amount);
+        emit OfferReceived(msg.sender, _tokenId);
     }
 
 }
