@@ -11,7 +11,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using ECDSAUpgradeable for bytes32;
 
     uint256 private constant COMMISSION_EXPONENT = 4;
-    uint256 private _tokenCurrentId;
     address payable private _platformAddress;
     uint256 private _platformCommission;
 
@@ -29,7 +28,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         uint amount;
         bool isValue;
         bool offer;
-        bool offerAccepted;
     }
 
     struct TransferType {
@@ -71,21 +69,21 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function create(address payable creator, uint256 tokenId, uint256 amount) public payable{
-        require(!_tokens[tokenId].isValue, "Kargain: Id for this token already exist");
-        super._mint(creator, _tokenCurrentId);
+        //require(super._exists(tokenId), "Kargain: Id for this token already exist");
+        super._mint(creator, tokenId);
         _tokens[tokenId].owner = creator;
+        _offers[tokenId] = payable(address(0));
         _tokens[tokenId].isValue = true;
         _tokens[tokenId].amount = amount;
         emit TokenCreated(creator, tokenId);
     }
 
-    function purchaseToken(uint256 _tokenId) public payable {
-        require(!_tokens[_tokenId].isValue, "Kargain: Auction for this token already exist");
-        require(_tokens[_tokenId].offer, "Kargain: An offer is pending");
-        require(_tokens[_tokenId].offerAccepted, "Kargain: Offer was accepted");
-        require(msg.value != _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
-        address payable refundAddress = _offers[_tokenId];
-        _offers[_tokenId] = payable(address(msg.sender));
+    function purchaseToken(address payable payer, uint256 _tokenId, uint256 amount) public payable {
+        //require(!_tokens[_tokenId].isValue, "Kargain: Auction for this token already exist");
+        //require(_offers[_tokenId] != address(0), "Kargain: An offer is pending");
+        //require(amount == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
+        address payable refundAddress = payable(address(payer));
+        _offers[_tokenId] = payable(address(payer));
         refundAddress.transfer(_tokens[_tokenId].amount);
         emit OfferReceived(msg.sender, _tokenId);
     }
