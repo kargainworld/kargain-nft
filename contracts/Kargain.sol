@@ -16,6 +16,8 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
 
     mapping (uint => Token) private _tokens;
     mapping (uint256 => address payable) private _offers;
+    mapping (uint256 => uint256) private _offer_closeTimestamp;
+    mapping (uint256 => bool) private _offer_claimed;
     mapping (uint256 => uint256) private _offers_closeTimestamp;
 
     event TokenCreated(address indexed creator, uint256 indexed tokenId);
@@ -26,7 +28,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     struct Token {
         address owner;
         uint amount;
-        bool isValue;
         bool offer;
     }
 
@@ -73,20 +74,31 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         super._mint(msg.sender, tokenId);
         _tokens[tokenId].owner = msg.sender;
         _offers[tokenId] = payable(address(0));
-        _tokens[tokenId].isValue = true;
+        _offer_claimed[tokenId] = false;
         _tokens[tokenId].amount = msg.value;
         emit TokenCreated(msg.sender, tokenId);
     }
 
     function purchaseToken(uint256 _tokenId) public payable {
-        //require(!_tokens[_tokenId].isValue, "Kargain: Auction for this token already exist");
+        //require(_tokens[tokenId], "Kargain: Offer for this token not exist");
+        //require(!_offer_claimed[tokenId], "Kargain: Offer was claimed");
         //require(_offers[_tokenId] != address(0), "Kargain: An offer is pending");
         //require(amount == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
+        _offers_closeTimestamp[tokenId] = block.timestamp;
         uint256 refundAmount = _tokens[_tokenId].amount;
         address payable refundAddress = _offers[_tokenId];
         _offers[_tokenId] = payable(address(msg.sender));
         refundAddress.transfer(refundAmount);
         emit OfferReceived(msg.sender, _tokenId);
+    }
+
+    function claimOffer(uint256 tokenId) public onlyOwner {
+        //require(_tokens[tokenId], "Kargain: Offer for this token not exist");
+        //require(!_offer_claimed[tokenId], "Kargain: Offer was claimed");
+        //require(_auction_closeTimestamp[tokenId] < block.timestamp, "Kargain: Offer has expired");
+
+        _offer_claimed[tokenId] = true;
+        uint256 platformCommission;
     }
 
 }
