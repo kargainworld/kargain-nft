@@ -68,23 +68,24 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _platformAddress = platformAddress_;
     }
 
-    function create(address payable creator, uint256 tokenId, uint256 amount) public payable{
+    function create(uint256 tokenId) public payable{
         //require(super._exists(tokenId), "Kargain: Id for this token already exist");
-        super._mint(creator, tokenId);
-        _tokens[tokenId].owner = creator;
+        super._mint(msg.sender, tokenId);
+        _tokens[tokenId].owner = msg.sender;
         _offers[tokenId] = payable(address(0));
         _tokens[tokenId].isValue = true;
-        _tokens[tokenId].amount = amount;
-        emit TokenCreated(creator, tokenId);
+        _tokens[tokenId].amount = msg.value;
+        emit TokenCreated(msg.sender, tokenId);
     }
 
-    function purchaseToken(address payable payer, uint256 _tokenId, uint256 amount) public payable {
+    function purchaseToken(uint256 _tokenId) public payable {
         //require(!_tokens[_tokenId].isValue, "Kargain: Auction for this token already exist");
         //require(_offers[_tokenId] != address(0), "Kargain: An offer is pending");
         //require(amount == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
-        address payable refundAddress = payable(address(payer));
-        _offers[_tokenId] = payable(address(payer));
-        refundAddress.transfer(_tokens[_tokenId].amount);
+        uint256 refundAmount = _tokens[_tokenId].amount;
+        address payable refundAddress = _offers[_tokenId];
+        _offers[_tokenId] = payable(address(msg.sender));
+        refundAddress.transfer(refundAmount);
         emit OfferReceived(msg.sender, _tokenId);
     }
 
