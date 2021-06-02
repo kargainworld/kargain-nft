@@ -15,6 +15,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     uint256 private _platformCommissionPercent;
 
     mapping (uint => Token) private _tokens;
+    mapping (uint256 => address payable) private _offer_vendor;
     mapping (uint256 => address payable) private _offers;
     mapping (uint256 => bool) private _token_exist;
     mapping (uint256 => bool) private _offer_claimed;
@@ -79,6 +80,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         super._mint(msg.sender, tokenId);
         _tokens[tokenId].owner = msg.sender;
         _offers[tokenId] = payable(address(0));
+        _offer_vendor[tokenId] = msg.sender;
         _token_exist[tokenId] = true;
         _offer_claimed[tokenId] = false;
         _tokens[tokenId].amount = msg.value;
@@ -88,7 +90,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     function purchaseToken(uint256 _tokenId) public payable {
         require(_token_exist[_tokenId], "Kargain: Id for this token not exist");
         require(!_offer_claimed[_tokenId], "Kargain: Offer was claimed");
-        // agregar que el owner no pueda comprar tu propio token
+        require(_tokens[_tokenId].owner != msg.sender, "Kargain: You cannot buy your own token");
         require(_offers[_tokenId] == address(0), "Kargain: An offer is pending");
         require(msg.value == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
         _offers_closeTimestamp[_tokenId] = block.timestamp;
@@ -100,24 +102,17 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function claimOffer(uint256 tokenId) public {
-        //require(_tokens[tokenId], "Kargain: Offer for this token not exist");
-        //require(!_offer_claimed[tokenId], "Kargain: Offer was claimed");
-        //require(_auction_closeTimestamp[tokenId] < block.timestamp, "Kargain: Offer has expired");
-        require(ownerOf(tokenId) == msg.sender, "ERC721: burn of token that is not own");
-
-
-    _offer_claimed[tokenId] = true;
+        require(_token_exist[tokenId], "Kargain: Id for this token not exist");
+        require(!_offer_claimed[tokenId], "Kargain: Offer was claimed");
+        require(_offers[tokenId] == address(0), "Kargain: An offer is pending");
+        require(_offers_closeTimestamp[tokenId] < block.timestamp, "Kargain: Offer has expired");
+        _offer_claimed[tokenId] = true;
         uint256 platformCommission;
-        if (_offers[tokenId] != address(0)){
-           platformCommission = _tokens[tokenId].amount
-            .mul(_platformCommissionPercent)
-            .div(10** COMMISSION_EXPONENT);
-
+        platformCommission = _tokens[tokenId].amount.mul(_platformCommissionPercent).div(10** COMMISSION_EXPONENT);
         safeTransferFrom(address(this), _offers[tokenId], tokenId);
-
-        }else{
-        }
-
+        _platformAddress.transfer(platformCommission);
+        _offer_vendor[tokenId].transfer((_tokens[tokenId].amount).sub(platformCommission));
+        _offer_vendor[tokenId] = msg.sender;
     }
 
 }
