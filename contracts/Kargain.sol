@@ -79,7 +79,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         return owner;
     }
 
-    function create(uint256 tokenId) public payable{
+    function mint(uint256 tokenId) public payable{
         require(!_token_exist[tokenId], "Kargain: Id for this token already exist");
         super._mint(msg.sender, tokenId);
         _tokens[tokenId].owner = msg.sender;
@@ -90,10 +90,11 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         emit TokenMinted(msg.sender, tokenId);
     }
 
-    function mintToken(uint256 _tokenId) public payable {
-        //require(_tokens[tokenId], "Kargain: Offer for this token not exist");
-        //require(!_offer_claimed[tokenId], "Kargain: Offer was claimed");
-        //require(_offers[_tokenId] != address(0), "Kargain: An offer is pending");
+    function purchaseToken(uint256 _tokenId) public payable {
+        require(_token_exist[_tokenId], "Kargain: Id for this token not exist");
+        require(!_offer_claimed[_tokenId], "Kargain: Offer was claimed");
+        // agregar que el owner no pueda comprar tu propio token
+        require(_offers[_tokenId] == address(0), "Kargain: An offer is pending");
         //require(amount == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
         _offers_closeTimestamp[_tokenId] = block.timestamp;
         uint256 refundAmount = _tokens[_tokenId].amount;
