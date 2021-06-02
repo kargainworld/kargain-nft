@@ -104,15 +104,14 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     function claimOffer(uint256 tokenId) public {
         require(_token_exist[tokenId], "Kargain: Id for this token not exist");
         require(!_offer_claimed[tokenId], "Kargain: Offer was claimed");
-        require(_offers[tokenId] == address(0), "Kargain: An offer is pending");
         require(_offers_closeTimestamp[tokenId] < block.timestamp, "Kargain: Offer has expired");
         _offer_claimed[tokenId] = true;
         uint256 platformCommission;
-        platformCommission = _tokens[tokenId].amount.mul(_platformCommissionPercent).div(10** COMMISSION_EXPONENT);
-        safeTransferFrom(address(this), _offers[tokenId], tokenId);
+        platformCommission = (_tokens[tokenId].amount).mul(_platformCommissionPercent).div(10** COMMISSION_EXPONENT);
+        //safeTransferFrom(address(this), _offer_vendor[tokenId], tokenId);
         _platformAddress.transfer(platformCommission);
         _offer_vendor[tokenId].transfer((_tokens[tokenId].amount).sub(platformCommission));
-        _offer_vendor[tokenId] = msg.sender;
+        _offer_vendor[tokenId] = _offers[tokenId];
     }
 
 }
