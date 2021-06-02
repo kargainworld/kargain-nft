@@ -68,11 +68,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _platformAddress = platformAddress_;
     }
 
-    function _exists(uint256 tokenId) internal view override returns (bool) {
-        address owner = _tokens[tokenId].owner;
-        return owner != address(0);
-    }
-
     function ownerOf(uint256 tokenId) public view override returns (address) {
         address owner = _tokens[tokenId].owner;
         require(owner != address(0), "ERC721: owner query for nonexistent token");
@@ -95,7 +90,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         require(!_offer_claimed[_tokenId], "Kargain: Offer was claimed");
         // agregar que el owner no pueda comprar tu propio token
         require(_offers[_tokenId] == address(0), "Kargain: An offer is pending");
-        //require(amount == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
+        require(msg.value == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
         _offers_closeTimestamp[_tokenId] = block.timestamp;
         uint256 refundAmount = _tokens[_tokenId].amount;
         address payable refundAddress = _offers[_tokenId];
