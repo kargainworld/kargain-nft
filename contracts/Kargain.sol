@@ -16,6 +16,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
 
     mapping (uint => Token) private _tokens;
     mapping (uint256 => address payable) private _offers;
+    mapping (uint256 => bool) private _token_exist;
     mapping (uint256 => bool) private _offer_claimed;
     mapping (uint256 => uint256) private _offers_closeTimestamp;
 
@@ -67,22 +68,23 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _platformAddress = platformAddress_;
     }
 
-    function _exists(uint256 tokenId) internal view returns (bool) {
+    function _exists(uint256 tokenId) internal view override returns (bool) {
         address owner = _tokens[tokenId].owner;
         return owner != address(0);
     }
 
-    function ownerOf(uint256 tokenId) public view returns (address) {
+    function ownerOf(uint256 tokenId) public view override returns (address) {
         address owner = _tokens[tokenId].owner;
         require(owner != address(0), "ERC721: owner query for nonexistent token");
         return owner;
     }
 
     function create(uint256 tokenId) public payable{
-        require(!_exists(tokenId), "Kargain: Id for this token already exist");
+        require(!_token_exist[tokenId], "Kargain: Id for this token already exist");
         super._mint(msg.sender, tokenId);
         _tokens[tokenId].owner = msg.sender;
         _offers[tokenId] = payable(address(0));
+        _token_exist[tokenId] = true;
         _offer_claimed[tokenId] = false;
         _tokens[tokenId].amount = msg.value;
         emit TokenMinted(msg.sender, tokenId);
