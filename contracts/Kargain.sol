@@ -23,7 +23,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     event OfferReceived(
         address indexed payer,
         uint256 tokenId,
-        uint256 ammount
+        uint256 amount
     );
     event OfferAccepted(address indexed payer, uint256 tokenId);
     event OfferRejected(address indexed payer, uint256 tokenId);
@@ -189,8 +189,8 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
             "Kargain: An offer is pending."
         );
         require(
-            msg.value >= _tokens_price[_tokenId],
-            "Kargain: the offer amount is invalid."
+            msg.value == _tokens_price[_tokenId],
+            "Kargain: The offer amount is invalid."
         );
 
         _offers[_tokenId] = payable(msg.sender);
@@ -249,7 +249,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         );
 
         _refoundOffer(_tokenId);
-
         _cancelOffer(_tokenId);
 
         emit OfferCancelled(msg.sender, _tokenId);
