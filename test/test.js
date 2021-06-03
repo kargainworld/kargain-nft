@@ -1,42 +1,104 @@
-const Kargain = artifacts.require('Kargain'),
-truffleAssert = require('truffle-assertions')
+const Kargain = artifacts.require("Kargain");
 
-contract('Kargain', async (accounts) => {
+contract("Kargain", (accounts) => {
+  let [admin, seller, buyer] = accounts;
 
-    let instance;
-    beforeEach('should setup the contract instance', async () => {
-        instance = await Kargain.deployed();
+  let tokenId = Date.now();
+
+  let instance;
+  beforeEach("should setup the contract instance", async () => {
+    instance = await Kargain.deployed();
+  });
+
+  it("Should initialize the contract correctly.", async () => {
+    const result = await instance.initialize(admin, 4);
+    const platformAddress = await instance.platformAddress();
+    const platformCommissionPercent =
+      await instance.platformCommissionPercent();
+
+    assert.equal(result.receipt.status, true);
+    assert.equal(platformAddress, admin);
+    assert.equal(platformCommissionPercent, 4);
+  });
+
+  it("Should admin set platfom address ", async () => {
+    const result = await instance.setPlatformAddress(accounts[9], { from: admin });
+    const platformAddress2 = await instance.platformAddress();
+
+    assert.equal(result.receipt.status, true);
+    assert.equal(platformAddress2, accounts[9]);
+});
+
+  it("should be able to set platform comission percent", async () => {
+    const result = await instance.setPlatformCommissionPercent(3, {
+      from: admin,
     });
+    const platformCommissionPercent =
+      await instance.platformCommissionPercent();
 
+    assert.equal(result.receipt.status, true);
+    assert.equal(platformCommissionPercent, 3);
+  });
 
-    it("Should initialize the contract correctly.", async ()=> {
-    await instance.initialize(accounts[0],4)
-    const platformAddress = await  instance.platformAddress();
-    const platformCommissionPercent = await  instance.platformCommissionPercent();
-
-    assert.equal(platformAddress,accounts[0]);
-    assert.equal(platformCommissionPercent,4);
-    });
-
-    it("Should admin set platfomAddress only ", async ()=> {
-        
-        //await instance.setPlatformAddress(accounts[9],{from:accounts[1]});
-        //const platformAddress = await  instance.platformAddress();
-        //assert.equal(platformAddress,accounts[0]);
-
-        await instance.setPlatformAddress(accounts[9],{from:accounts[0]});
-        const platformAddress2 = await  instance.platformAddress();
-        assert.equal(platformAddress2,accounts[9]);
-    });
+  it("should be able to set offer expiration time", async () => {
     
-    it("Should set platformCommissionPercent", async ()=> {
-        assert.equal(true,false);
+    const result = await instance.setOfferExpirationTime(2, {
+      from: admin,
     });
 
-    it("Should mint a new KGN nft with tokenId = 126", async ()=> {
-        assert.equal(true,false);
+    const offerExpirationTime =
+      await instance.offerExpirationTime();
+
+    assert.equal(result.receipt.status, true);
+    assert.equal(offerExpirationTime, 2);
+  });
+
+  it("should be able to create a new token", async () => {
+    const result = await instance.mint(
+      tokenId,
+      web3.utils.toWei("4", "ether"),
+      { from: seller }
+    );
+    const newOwner = await instance.ownerOf(tokenId);
+    const tokenPrice = await instance.tokenPrice(tokenId);
+
+    assert.equal(result.receipt.status, true);
+    assert.equal(newOwner, seller);
+    assert.equal(tokenPrice, web3.utils.toWei("4", "ether"));
+  });
+
+  it("should be able to set a new price to token", async () => {
+    const result = await instance.setTokenPrice(
+      tokenId,
+      web3.utils.toWei("3", "ether"),
+      {
+        from: seller,
+      }
+    );
+    const tokenPrice = await instance.tokenPrice(tokenId);
+
+    assert.equal(result.receipt.status, true);
+    assert.equal(tokenPrice, web3.utils.toWei("3", "ether"));
+  });
+
+  it("should be able to create a new offer", async () => {
+    const result = await instance.createOffer(tokenId, {
+      from: buyer,
+      value: web3.utils.toWei("3", "ether"),
     });
-    it("Shouldn't mint a new KGN nft with  tokenId = 126", async ()=> {
-        assert.equal(true,false);
+
+    const offerAdress = await instance.offerAddress(tokenId);
+    assert.equal(result.receipt.status, true);
+    assert.equal(offerAdress, buyer);
+  });
+
+  it("should be able to accept an offer", async () => {
+    const result = await instance.acceptOffer(tokenId, {
+      from: seller,
     });
-})
+    const newOwner = await instance.ownerOf(tokenId);
+
+    assert.equal(result.receipt.status, true);
+    assert.equal(newOwner, buyer);
+  });
+});
