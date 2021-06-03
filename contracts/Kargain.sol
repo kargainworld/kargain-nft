@@ -95,8 +95,8 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         require(msg.value == _tokens[_tokenId].amount, "Kargain: the offer amount is invalid");
         _offers_closeTimestamp[_tokenId] = block.timestamp;
         uint256 refundAmount = _tokens[_tokenId].amount;
-        address payable refundAddress = _offers[_tokenId];
         _offers[_tokenId] = payable(address(msg.sender));
+        address payable refundAddress = _offers[_tokenId];
         refundAddress.transfer(refundAmount);
         emit OfferReceived(msg.sender, _tokenId);
     }
@@ -108,7 +108,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _offer_claimed[tokenId] = true;
         uint256 platformCommission;
         platformCommission = (_tokens[tokenId].amount).mul(_platformCommissionPercent).div(10** COMMISSION_EXPONENT);
-        //safeTransferFrom(address(this), _offer_vendor[tokenId], tokenId);
+        safeTransferFrom(address(this), _offer_vendor[tokenId], tokenId);
         _platformAddress.transfer(platformCommission);
         _offer_vendor[tokenId].transfer((_tokens[tokenId].amount).sub(platformCommission));
         _offer_vendor[tokenId] = _offers[tokenId];
