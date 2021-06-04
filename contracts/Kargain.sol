@@ -16,6 +16,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     uint256 private _offerExpirationTime = 1 days;
 
     mapping(uint256 => uint256) private _tokens_price;
+    mapping(uint256 => address) private _tokens_owners;
     mapping(uint256 => address payable) private _offers;
     mapping(uint256 => uint256) private _offers_closeTimestamp;
 
@@ -128,6 +129,17 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         onlyOwner(_tokenId)
     {
         _tokens_price[_tokenId] = _price;
+    }
+
+    function setTokenOwner(address payable _newOwnerAddress, uint256 _tokenId) 
+        public
+        onlyOwner(_tokenId){
+            _tokens_owners[_tokenId] = _newOwnerAddress
+
+    }
+
+    function tokenOwner(int256 _tokenId) public view returns (uint256) {
+        return _tokens_owners[_tokenId];
     }
 
     function offerAddress(uint256 _tokenId)
