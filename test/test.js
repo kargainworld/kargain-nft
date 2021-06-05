@@ -101,4 +101,11 @@ contract("Kargain", (accounts) => {
     assert.equal(result.receipt.status, true);
     assert.equal(newOwner, buyer);
   });
+
+  it("should be able to burn the token", async () => {
+    const result = await instance.burn(tokenId, {
+      from: buyer,
+    });
+    assert.equal(result.receipt.status, true);
+  });
 });
