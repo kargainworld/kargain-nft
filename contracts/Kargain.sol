@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity >=0.6.0 <0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721BurnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/cryptography/ECDSAUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
+import "../node_modules/@openzeppelin/contracts-upgradeable/token/ERC721/ERC721BurnableUpgradeable.sol";
+import "../node_modules/@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "../node_modules/@openzeppelin/contracts-upgradeable/cryptography/ECDSAUpgradeable.sol";
+import "../node_modules/@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
 
 contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using SafeMathUpgradeable for uint256;
@@ -29,13 +30,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     event OfferRejected(address indexed payer, uint256 tokenId);
     event OfferExpired(address indexed payer, uint256 tokenId);
     event OfferCancelled(address indexed payer, uint256 tokenId);
-
-    struct TransferType {
-        address from;
-        address to;
-        uint256 tokenId;
-        uint256 amount;
-    }
 
     modifier onlyAdmin() {
         require(
@@ -140,7 +134,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function _calculateCommission(uint256 price)
-        private
+        private view
         returns (uint256 commission)
     {
         return
@@ -156,7 +150,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         delete _offers_closeTimestamp[_tokenId];
     }
 
-    function _refoundOffer(uint256 _tokenId)
+    function _refundOffer(uint256 _tokenId)
         private
         tokenExists(_tokenId)
         offerExist(_tokenId)
@@ -231,7 +225,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         onlyOwner(_tokenId)
         offerExist(_tokenId)
     {
-        _refoundOffer(_tokenId);
+        _refundOffer(_tokenId);
         _cancelOffer(_tokenId);
 
         emit OfferRejected(msg.sender, _tokenId);
@@ -248,7 +242,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
             "Kargain: You do not have any offer for this token."
         );
 
-        _refoundOffer(_tokenId);
+        _refundOffer(_tokenId);
         _cancelOffer(_tokenId);
 
         emit OfferCancelled(msg.sender, _tokenId);
