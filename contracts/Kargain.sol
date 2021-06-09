@@ -7,6 +7,7 @@ import "../node_modules/@openzeppelin/contracts-upgradeable/access/AccessControl
 import "../node_modules/@openzeppelin/contracts-upgradeable/cryptography/ECDSAUpgradeable.sol";
 import "../node_modules/@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
 
+
 contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using SafeMathUpgradeable for uint256;
     using ECDSAUpgradeable for bytes32;
@@ -188,17 +189,15 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         );
 
         _offers[_tokenId] = payable(msg.sender);
-        _offers_closeTimestamp[_tokenId] =
-            block.timestamp +
-            _offerExpirationTime;
+        _offers_closeTimestamp[_tokenId] = _offerExpirationTime.add(now);
         emit OfferReceived(msg.sender, _tokenId, msg.value);
     }
 
     function acceptOffer(uint256 _tokenId)
-        public
-        tokenExists(_tokenId)
-        offerExist(_tokenId)
-        onlyOwner(_tokenId)
+    public
+    tokenExists(_tokenId)
+    offerExist(_tokenId)
+    onlyOwner(_tokenId)
     {
         if (_offers_closeTimestamp[_tokenId] < block.timestamp) {
             _cancelOffer(_tokenId);
@@ -206,14 +205,12 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
             return;
         }
 
-        safeTransferFrom(msg.sender, _offers[_tokenId], _tokenId);
 
         uint256 platformCommission =
-            _calculateCommission(_tokens_price[_tokenId]);
+        _calculateCommission(_tokens_price[_tokenId]);
         _platformAddress.transfer(platformCommission);
-
         msg.sender.transfer(_tokens_price[_tokenId].sub(platformCommission));
-
+        safeTransferFrom(msg.sender, _offers[_tokenId], _tokenId);
         _cancelOffer(_tokenId);
 
         emit OfferAccepted(msg.sender, _tokenId);
