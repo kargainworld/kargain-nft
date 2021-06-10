@@ -8,14 +8,14 @@ import "../node_modules/@openzeppelin/contracts-upgradeable/cryptography/ECDSAUp
 import "../node_modules/@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
 
 
-contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
+contract Kargainv02 is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using SafeMathUpgradeable for uint256;
     using ECDSAUpgradeable for bytes32;
 
     uint256 private constant COMMISSION_EXPONENT = 4;
     address payable private _platformAddress;
     uint256 private _platformCommissionPercent;
-    uint256 private _offerExpirationTime = 1 days;
+    uint256 private _offerExpirationTime;
 
     mapping(uint256 => uint256) private _tokens_price;
     mapping(uint256 => address payable) private _offers;
@@ -68,6 +68,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         address payable _platformAddress_,
         uint256 _platformCommissionPercent_
     ) public initializer {
+        _offerExpirationTime = 1 days;
         _platformAddress = _platformAddress_;
         _platformCommissionPercent = _platformCommissionPercent_;
         __ERC721Burnable_init();
@@ -243,5 +244,10 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _cancelOffer(_tokenId);
 
         emit OfferCancelled(msg.sender, _tokenId);
+    }
+    
+    function version()public pure returns (string memory)
+    {
+        return "Kargain v02";
     }
 }

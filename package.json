@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@openzeppelin/cli": "^2.8.2",
-    "@openzeppelin/truffle-upgrades": "^1.5.0",
+    "@openzeppelin/truffle-upgrades": "^1.7.0",
     "solidity-coverage": "^0.7.16"
   },
   "repository": {
