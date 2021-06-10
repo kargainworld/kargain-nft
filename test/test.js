@@ -14,7 +14,7 @@ contract("Kargain", (accounts) => {
     const result = await instance.initialize(admin, 4);
     const platformAddress = await instance.platformAddress();
     const platformCommissionPercent =
-      await instance.platformCommissionPercent();
+        await instance.platformCommissionPercent();
 
     assert.equal(result.receipt.status, true);
     assert.equal(platformAddress, admin);
@@ -27,27 +27,27 @@ contract("Kargain", (accounts) => {
 
     assert.equal(result.receipt.status, true);
     assert.equal(platformAddress2, accounts[9]);
-});
+  });
 
   it("should be able to set platform comission percent", async () => {
     const result = await instance.setPlatformCommissionPercent(3, {
       from: admin,
     });
     const platformCommissionPercent =
-      await instance.platformCommissionPercent();
+        await instance.platformCommissionPercent();
 
     assert.equal(result.receipt.status, true);
     assert.equal(platformCommissionPercent, 3);
   });
 
   it("should be able to set offer expiration time", async () => {
-    
+
     const result = await instance.setOfferExpirationTime(2, {
       from: admin,
     });
 
     const offerExpirationTime =
-      await instance.offerExpirationTime();
+        await instance.offerExpirationTime();
 
     assert.equal(result.receipt.status, true);
     assert.equal(offerExpirationTime, 2);
@@ -55,9 +55,9 @@ contract("Kargain", (accounts) => {
 
   it("should be able to create a new token", async () => {
     const result = await instance.mint(
-      tokenId,
-      web3.utils.toWei("4", "ether"),
-      { from: seller }
+        tokenId,
+        web3.utils.toWei("4", "ether"),
+        { from: seller }
     );
     const newOwner = await instance.ownerOf(tokenId);
     const tokenPrice = await instance.tokenPrice(tokenId);
@@ -67,24 +67,11 @@ contract("Kargain", (accounts) => {
     assert.equal(tokenPrice, web3.utils.toWei("4", "ether"));
   });
 
-  it("should be able to set a new price to token", async () => {
-    const result = await instance.setTokenPrice(
-      tokenId,
-      web3.utils.toWei("3", "ether"),
-      {
-        from: seller,
-      }
-    );
-    const tokenPrice = await instance.tokenPrice(tokenId);
-
-    assert.equal(result.receipt.status, true);
-    assert.equal(tokenPrice, web3.utils.toWei("3", "ether"));
-  });
 
   it("should be able to create a new offer", async () => {
     const result = await instance.createOffer(tokenId, {
       from: buyer,
-      value: web3.utils.toWei("3", "ether"),
+      value: web3.utils.toWei("4", "ether"),
     });
 
     const offerAdress = await instance.offerAddress(tokenId);
