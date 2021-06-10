@@ -26,13 +26,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     event OfferExpired(address indexed payer, uint256 tokenId);
     event OfferCancelled(address indexed payer, uint256 tokenId);
 
-    struct TransferType {
-        address from;
-        address to;
-        uint256 tokenId;
-        uint256 amount;
-    }
-
     modifier onlyAdmin() {
         require(
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
@@ -128,7 +121,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         return _offers[_tokenId];
     }
 
-    function _refoundOffer(uint256 _tokenId)
+    function _refundOffer(uint256 _tokenId)
     private
     tokenExists(_tokenId)
     offerExist(_tokenId)
@@ -162,7 +155,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
             "Kargain: You cannot buy your own token."
         );
         require(
-            _offers[_tokenId] == address(0) && _offers_closeTimestamp[_tokenId] < block.timestamp,
+            _offers[_tokenId] == address(0) && _offers_closeTimestamp[_tokenId] < now,
             "Kargain: An offer is already submitted."
         );
         require(
@@ -171,9 +164,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         );
 
         _offers[_tokenId] = payable(msg.sender);
-        _offers_closeTimestamp[_tokenId] =
-        block.timestamp +
-        _offerExpirationTime;
+        _offers_closeTimestamp[_tokenId] = now.add(_offerExpirationTime);
         emit OfferReceived(msg.sender, _tokenId, msg.value);
     }
 
@@ -183,7 +174,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     offerExist(_tokenId)
     onlyOwner(_tokenId)
     {
-        if (_offers_closeTimestamp[_tokenId] < block.timestamp) {
+        if (_offers_closeTimestamp[_tokenId] < now) {
             delete _offers[_tokenId];
             delete _offers_closeTimestamp[_tokenId];
             emit OfferExpired(msg.sender, _tokenId);
@@ -194,7 +185,6 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         delete _offers[_tokenId];
         delete _offers_closeTimestamp[_tokenId];
 
-        safeTransferFrom(msg.sender, buyer, _tokenId);
 
         uint256 platformCommission =
         _tokens_price[_tokenId].mul(_platformCommissionPercent).div(
@@ -203,6 +193,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _platformAddress.transfer(platformCommission);
 
         msg.sender.transfer(_tokens_price[_tokenId].sub(platformCommission));
+        safeTransferFrom(msg.sender, buyer, _tokenId);
 
         emit OfferAccepted(msg.sender, _tokenId);
     }
@@ -213,7 +204,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     onlyOwner(_tokenId)
     offerExist(_tokenId)
     {
-        _refoundOffer(_tokenId);
+        _refundOffer(_tokenId);
 
         emit OfferRejected(msg.sender, _tokenId);
     }
@@ -228,7 +219,7 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
             hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
             "Kargain: You do not have any offer for this token."
         );
-        _refoundOffer(_tokenId);
+        _refundOffer(_tokenId);
 
         emit OfferCancelled(msg.sender, _tokenId);
     }
