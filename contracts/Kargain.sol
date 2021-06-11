@@ -75,8 +75,8 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function setPlatformCommissionPercent(uint256 platformCommissionPercent_)
-    external
-    onlyAdmin
+        external
+        onlyAdmin
     {
         _platformCommissionPercent = platformCommissionPercent_;
     }
@@ -86,8 +86,8 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function setPlatformAddress(address payable platformAddress_)
-    external
-    onlyAdmin
+        external
+        onlyAdmin
     {
         _platformAddress = platformAddress_;
     }
@@ -97,34 +97,47 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function setOfferExpirationTime(uint256 offerExpirationTime_)
-    external
-    onlyAdmin
+        external
+        onlyAdmin
     {
         _offerExpirationTime = offerExpirationTime_;
     }
 
     function tokenPrice(uint256 _tokenId)
-    external
-    view
-    tokenExists(_tokenId)
-    returns (uint256)
+        external
+        view
+        tokenExists(_tokenId)
+        returns (uint256)
     {
         return _tokens_price[_tokenId];
     }
 
+    function setTokenPrice(uint256 _tokenId, uint256 _price)
+        external
+        tokenExists(_tokenId)
+        onlyOwner(_tokenId)
+    {
+        require(
+            _offers[_tokenId] == address(0) ||
+                _offers_closeTimestamp[_tokenId] < now,
+            "Kargain: An offer is already submitted, token price cannot be changed until it expires."
+        );
+        _tokens_price[_tokenId] = _price;
+    }
+
     function offerAddress(uint256 _tokenId)
-    external
-    view
-    tokenExists(_tokenId)
-    returns (address payable)
+        external
+        view
+        tokenExists(_tokenId)
+        returns (address payable)
     {
         return _offers[_tokenId];
     }
 
     function _refundOffer(uint256 _tokenId)
-    private
-    tokenExists(_tokenId)
-    offerExist(_tokenId)
+        private
+        tokenExists(_tokenId)
+        offerExist(_tokenId)
     {
         address payable buyer = _offers[_tokenId];
 
@@ -146,16 +159,17 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function createOffer(uint256 _tokenId)
-    external
-    payable
-    tokenExists(_tokenId)
+        external
+        payable
+        tokenExists(_tokenId)
     {
         require(
             ownerOf(_tokenId) != msg.sender,
             "Kargain: You cannot buy your own token."
         );
         require(
-            _offers[_tokenId] == address(0) && _offers_closeTimestamp[_tokenId] < now,
+            _offers[_tokenId] == address(0) &&
+                _offers_closeTimestamp[_tokenId] < now,
             "Kargain: An offer is already submitted."
         );
         require(
@@ -169,10 +183,10 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function acceptOffer(uint256 _tokenId)
-    external
-    tokenExists(_tokenId)
-    offerExist(_tokenId)
-    onlyOwner(_tokenId)
+        external
+        tokenExists(_tokenId)
+        offerExist(_tokenId)
+        onlyOwner(_tokenId)
     {
         if (_offers_closeTimestamp[_tokenId] < now) {
             delete _offers[_tokenId];
@@ -185,11 +199,10 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         delete _offers[_tokenId];
         delete _offers_closeTimestamp[_tokenId];
 
-
         uint256 platformCommission =
-        _tokens_price[_tokenId].mul(_platformCommissionPercent).div(
-            10**COMMISSION_EXPONENT
-        );
+            _tokens_price[_tokenId].mul(_platformCommissionPercent).div(
+                10**COMMISSION_EXPONENT
+            );
         _platformAddress.transfer(platformCommission);
 
         msg.sender.transfer(_tokens_price[_tokenId].sub(platformCommission));
@@ -199,10 +212,10 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function rejectOffer(uint256 _tokenId)
-    external
-    tokenExists(_tokenId)
-    onlyOwner(_tokenId)
-    offerExist(_tokenId)
+        external
+        tokenExists(_tokenId)
+        onlyOwner(_tokenId)
+        offerExist(_tokenId)
     {
         _refundOffer(_tokenId);
 
@@ -210,13 +223,13 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     }
 
     function cancelOffer(uint256 _tokenId)
-    external
-    tokenExists(_tokenId)
-    offerExist(_tokenId)
+        external
+        tokenExists(_tokenId)
+        offerExist(_tokenId)
     {
         require(
             _offers[_tokenId] == msg.sender ||
-            hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+                hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
             "Kargain: You do not have any offer for this token."
         );
         _refundOffer(_tokenId);
