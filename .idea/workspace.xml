@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="87331ddd-5620-4d92-bcbf-e288213c3ef4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Contracts/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Contracts/.soliumignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Contracts/.soliumrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.soliumignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.soliumrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/contracts/Kargain-solc-output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/contracts/Kargain.abi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/contracts/Kargain.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/contracts/Kargain.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/contracts/Kargain.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/contracts/Kargain.sol:155:47:" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/contracts/Kargain.sol:157:5:" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/contracts/Kargain.sol:159:38:" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/contracts/Kargain.sol.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/contracts/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/coverage-final.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/contracts/Kargain.sol.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/contracts/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/prettify.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/prettify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/sort-arrow-sprite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/sorter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/prettify.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/prettify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/sort-arrow-sprite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/sorter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/1_initial_migration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/truffle-config.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/API" />
+  </component>
+  <component name="ProjectId" id="1t56t7zIVL1R5mGRIBXWWQsNXmS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/API/node_modules/typescript/lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Contracts" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="87331ddd-5620-4d92-bcbf-e288213c3ef4" name="Default Changelist" comment="" />
+      <created>1622046814709</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1622046814709</updated>
+      <workItem from="1622046815950" duration="4782000" />
+      <workItem from="1622070587913" duration="8209000" />
+      <workItem from="1622288476550" duration="21234000" />
+      <workItem from="1622410284992" duration="16615000" />
+      <workItem from="1622458370878" duration="4766000" />
+      <workItem from="1622485199971" duration="407000" />
+      <workItem from="1622502399778" duration="12775000" />
+      <workItem from="1622577728819" duration="23198000" />
+      <workItem from="1622677892809" duration="12692000" />
+      <workItem from="1622798369470" duration="16000" />
+      <workItem from="1622832528483" duration="7000" />
+      <workItem from="1622926965822" duration="9468000" />
+      <workItem from="1623088256142" duration="18183000" />
+      <workItem from="1623158492544" duration="15635000" />
+      <workItem from="1623193767790" duration="13560000" />
+      <workItem from="1623314658083" duration="12163000" />
+      <workItem from="1623360473756" duration="1644000" />
+      <workItem from="1623405515683" duration="48000" />
+      <workItem from="1623405586632" duration="4703000" />
+      <workItem from="1623450286296" duration="1226000" />
+      <workItem from="1623575539304" duration="10000" />
+      <workItem from="1623665496333" duration="637000" />
+      <workItem from="1623684994299" duration="45000" />
+      <workItem from="1623687010866" duration="926000" />
+      <workItem from="1623734778868" duration="2557000" />
+      <workItem from="1623745050978" duration="1046000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2456" y="323" width="837" height="440" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1623315055925">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2456" y="323" width="837" height="440" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1623315055925" />
+    <state x="1422" y="396" width="1920" height="854" key="DiffContextDialog" timestamp="1623418097013">
+      <screen x="72" y="27" width="3768" height="1053" />
+    </state>
+    <state x="2024" y="103" width="1713" height="875" key="DiffContextDialog/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1623172236236" />
+    <state x="172" y="127" width="1649" height="854" key="DiffContextDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1623182209388" />
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1622934263164" />
+    <state x="1422" y="396" width="1920" height="854" key="DiffContextDialog/72.27.3768.1053@72.27.3768.1053" timestamp="1623418097013" />
+    <state x="608" y="216" width="776" height="674" key="find.popup" timestamp="1622717146424">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="608" y="216" width="776" height="674" key="find.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1622717146424" />
+    <state x="576" y="248" key="run.anything.popup" timestamp="1622668363093">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="576" y="248" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1622668363093" />
+    <state x="575" y="45" width="840" height="1034" key="search.everywhere.popup" timestamp="1622293016607">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="575" y="45" width="840" height="1034" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1622293016607" />
+  </component>
+</project>
