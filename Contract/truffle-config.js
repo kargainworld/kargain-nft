@@ -1,12 +1,14 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const mnemonicPrivateKey = process.env["MNEMONIC_PRIVATEKEY"];
 const mnemonicPrivateKeyTesnet = process.env["MNEMONIC_PRIVATEKEY_TESNET"];
+const mnemonicPrivateKeyGanache = process.env["MNEMONIC_PRIVATEKEY_GANACHE"];
 
 module.exports = {
    networks: {
-    local: {
-      provider: () => new HDWalletProvider(mnemonicPrivateKey, "http://localhost"),
-      port: 7545,            // Standard BSC port (default: none)
+    development: {
+     // provider: () => new HDWalletProvider(mnemonicPrivateKeyGanache, "http://127.0.0.1:7545"),
+     host : "localhost",
+     port: 7545,            // Standard BSC port (default: none)
       network_id: "5777",       // Any network (default: none)
 
     },
@@ -18,7 +20,7 @@ module.exports = {
       skipDryRun: true
     },
     bsc: {
-      provider: () => new HDWalletProvider(mnemonicPrivateKeyTesnet, `https://bsc-dataseed1.binance.org`),
+      provider: () => new HDWalletProvider(mnemonicPrivateKey, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
       confirmations: 10,
       timeoutBlocks: 200,
