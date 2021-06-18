@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b367cd82-292e-4f09-a3bd-4302dd163eef" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/nest-cli.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/app.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/app.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/contracts/Kargain.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/contracts/commons.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/contracts/factories/Kargain__factory.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/contracts/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/test/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/test/jest-e2e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/tsconfig.build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/.soliumignore" beforeDir="false" afterPath="$PROJECT_DIR$/.soliumignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/.soliumrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.soliumrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/bin/contracts/Kargain-solc-output.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/contracts/Kargain-solc-output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/bin/contracts/Kargain.abi" beforeDir="false" afterPath="$PROJECT_DIR$/bin/contracts/Kargain.abi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/bin/contracts/Kargain.bin" beforeDir="false" afterPath="$PROJECT_DIR$/bin/contracts/Kargain.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/bin/contracts/Kargain.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/contracts/Kargain.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/contracts/Kargain.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/Kargain.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/contracts/Kargain.sol:155:47:" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/Kargain.sol:155:47:" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/contracts/Kargain.sol:157:5:" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/Kargain.sol:157:5:" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/contracts/Kargain.sol:159:38:" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/Kargain.sol:159:38:" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage.json" beforeDir="false" afterPath="$PROJECT_DIR$/coverage.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/contracts/Kargain.sol.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/contracts/Kargain.sol.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/contracts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/contracts/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/coverage-final.json" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/coverage-final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/contracts/Kargain.sol.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/contracts/Kargain.sol.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/contracts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/contracts/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/prettify.css" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/prettify.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/prettify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/sort-arrow-sprite.png" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/sort-arrow-sprite.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov-report/sorter.js" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/sorter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/lcov.info" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/prettify.css" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/prettify.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/prettify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/sort-arrow-sprite.png" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/sort-arrow-sprite.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/coverage/sorter.js" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/sorter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/migrations/1_initial_migration.js" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/1_initial_migration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/test/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contract/truffle-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/truffle-config.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1u87nfePpz7ZTb5BXKKycZl9xN0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b367cd82-292e-4f09-a3bd-4302dd163eef" name="Default Changelist" comment="" />
+      <created>1624035530756</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624035530756</updated>
+      <workItem from="1624035534456" duration="306000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
