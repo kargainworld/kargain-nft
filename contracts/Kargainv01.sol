@@ -13,7 +13,7 @@ contract Kargainv01 is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     uint256 private constant COMMISSION_EXPONENT = 4;
     address payable private _platformAddress;
     uint256 private _platformCommissionPercent;
-    uint256 private _offerExpirationTime = 1 days;
+    uint256 private _offerExpirationTime;
 
     mapping(uint256 => uint256) private _tokens_price;
     mapping(uint256 => address payable) private _offers;
@@ -64,6 +64,7 @@ contract Kargainv01 is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     ) public initializer {
         _platformAddress = _platformAddress_;
         _platformCommissionPercent = _platformCommissionPercent_;
+        _offerExpirationTime = 1 days;
         __ERC721Burnable_init();
         __ERC721_init("Kargain", "KGN");
         __AccessControl_init();
