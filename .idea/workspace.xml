@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b367cd82-292e-4f09-a3bd-4302dd163eef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contracts/Kargainv01.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/Kargainv01.sol" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
