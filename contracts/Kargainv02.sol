@@ -236,4 +236,9 @@ contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
 
         emit OfferCancelled(msg.sender, _tokenId);
     }
+
+    function version()public pure returns (string memory)
+    {
+        return "Kargain v02";
+    }
 }
