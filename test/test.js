@@ -128,4 +128,9 @@ contract("Kargainv01", (accounts) => {
     });
     assert.equal(result.receipt.status, true);
   });
+
+  it('retrieve returns a value previously initialized', async () => {
+    const result = await instance.version();
+    assert.equal(result, "Kargain v02");
+  });
 });
