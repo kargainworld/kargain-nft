@@ -1,6 +1,6 @@
-const Kargain = artifacts.require("Kargain");
+const Kargain = artifacts.require("Kargainv01");
 
-contract("Kargain", (accounts) => {
+contract("Kargainv01", (accounts) => {
   let [admin, seller, buyer] = accounts;
 
   let tokenId = Date.now();

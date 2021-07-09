@@ -6,7 +6,7 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts-upgradeable/cryptography/ECDSAUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
 
-contract Kargain is ERC721BurnableUpgradeable, AccessControlUpgradeable {
+contract Kargainv02 is ERC721BurnableUpgradeable, AccessControlUpgradeable {
     using SafeMathUpgradeable for uint256;
     using ECDSAUpgradeable for bytes32;
 
