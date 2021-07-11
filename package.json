@@ -6,7 +6,7 @@
   "scripts": {
     "test": "truffle test",
     "build": "truffle compile",
-    "migrate": "truffle migrate --network public"
+    "migrate:local": "truffle migrate --network local --reset"
   },
   "directories": {
     "test": "test"
