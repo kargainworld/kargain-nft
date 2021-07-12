@@ -1,17 +1,15 @@
-const Kargainv01 = artifacts.require('Kargainv01');
-
+const KargainV01 = artifacts.require('KargainV01');
+const { deployProxy } = require('@openzeppelin/truffle-upgrades')
 
 module.exports = async function (deployer, network, accounts) {
-
-    await deployer.deploy(Kargainv01);
-    console.log("contract deployed");
+    const [kargainAdmin] = accounts
+    const initialPlatformCommissionPercent = 3 // %
+    const deployedKargain = await deployProxy(KargainV01, [kargainAdmin, initialPlatformCommissionPercent], { deployer })
     
-    const instance = await Kargainv01.deployed();
-    console.log("starting  initialization for address: " + accounts[0]);
+    console.log('Kargain Contract: ' + deployedKargain.address)
 
-    await instance.initialize(accounts[0], 4);
-    console.log("contract initialized");
-    
-    const output = await instance.version();
-    console.log("Version: " + output)
+    const version = await deployedKargain.version()
+    console.log('Kargain version: ' + version)
+    const commission = await deployedKargain.platformCommissionPercent()
+    console.log('Kargain commission: ' + commission)
 };
