@@ -6,6 +6,7 @@
   "scripts": {
     "test": "truffle test",
     "build": "truffle compile",
+    "migrate:ropstentestnet": "truffle migrate --network ropsten",
     "migrate:local": "truffle migrate --network local --reset"
   },
   "directories": {
