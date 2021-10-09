@@ -2,6 +2,7 @@ require('dotenv').config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const mnemonicPrivateKey = process.env["MNEMONIC_PRIVATEKEY"];
 const mnemonicPrivateKeyTesnet = process.env["MNEMONIC_PRIVATEKEY_TESNET"];
+const infura = process.env["INFURA_PROJECT_ID"]
 
 module.exports = {
    networks: {
@@ -24,6 +25,14 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true
     },
+    ropsten: {
+       provider: function() {
+           return new HDWalletProvider(mnemonicPrivateKeyTesnet, `https://ropsten.infura.io/v3/${infura}`, 0, 10)
+       },
+       network_id: 3,
+        gasLimit: 8000000,
+        gasPrice: 2100000,
+    }
    },
   // Set default mocha options here, use special reporters etc.
   mocha: {
