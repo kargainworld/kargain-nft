@@ -66,7 +66,7 @@ contract KargainV01 is ERC721BurnableUpgradeable, AccessControlUpgradeable {
         _platformCommissionPercent = _platformCommissionPercent_;
         _offerExpirationTime = 1 days;
         __ERC721Burnable_init();
-        __ERC721_init("Kargain", "KGN");
+        __ERC721_init("Kargain", "KARG");
         __AccessControl_init();
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
